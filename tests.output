@@ -1,0 +1,19 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":71388,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/Users/programming.com/Documents/kebormed/test/integration/app_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /Users/programming.com/Documents/kebormed/test/integration/app_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":0}
+{"suite":{"id":2,"platform":"vm","path":"/Users/programming.com/Documents/kebormed/test/features/splash/splash_test.dart"},"type":"suite","time":3}
+{"test":{"id":3,"name":"loading /Users/programming.com/Documents/kebormed/test/features/splash/splash_test.dart","suiteID":2,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":3}
+{"count":2,"time":3,"type":"allSuites"}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:55235/RVLlDyVW0Ow=/","observatoryUri":"http://127.0.0.1:55235/RVLlDyVW0Ow=/"}}]
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":"http://127.0.0.1:55236/mcxfrvyjyl4=/","observatoryUri":"http://127.0.0.1:55236/mcxfrvyjyl4=/"}}]
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1422}
+{"group":{"id":4,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":1423}
+{"test":{"id":5,"name":"SplashScreen navigates to /login after 2 seconds","suiteID":0,"groupIDs":[4],"metadata":{"skip":false,"skipReason":null},"line":171,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":10,"root_column":3,"root_url":"file:///Users/programming.com/Documents/kebormed/test/integration/app_test.dart"},"type":"testStart","time":1424}
+{"testID":3,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1425}
+{"group":{"id":6,"suiteID":2,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":1425}
+{"test":{"id":7,"name":"SplashScreen navigates to Login after 2 seconds","suiteID":2,"groupIDs":[6],"metadata":{"skip":false,"skipReason":null},"line":171,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":10,"root_column":3,"root_url":"file:///Users/programming.com/Documents/kebormed/test/features/splash/splash_test.dart"},"type":"testStart","time":1425}
+{"testID":5,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":1903}
+{"testID":7,"result":"success","skipped":false,"hidden":false,"type":"testDone","time":1909}
+{"success":true,"type":"done","time":2175}
