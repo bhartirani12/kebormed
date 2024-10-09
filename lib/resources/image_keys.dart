@@ -1,3 +1,3 @@
 class ImageKeys {
-  static const String logoImage = 'assets/images/app_logo.svg';
+  static const String logoImage = 'assets/images/logo.svg';
 }

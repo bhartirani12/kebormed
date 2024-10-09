@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'core/routes/route.dart';
+import 'features/home/pages/home.dart';
 import 'features/login/pages/login.dart';
+import 'injection/injection_conatiner.dart';
+import 'resources/resource.dart';
 
 class KebormedApp extends StatefulWidget {
   const KebormedApp({
@@ -24,7 +30,11 @@ class _KebormedAppState extends State<KebormedApp> {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      localizationsDelegates: const [],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       localeResolutionCallback: (locale, supportedLocales) {
         if (locale != null) {
           for (var supportedLocale in supportedLocales) {
@@ -35,7 +45,11 @@ class _KebormedAppState extends State<KebormedApp> {
         }
         return supportedLocales.first;
       },
-      home: const LoginScreen(),
+      initialRoute: di<Routes>().login,
+      routes: {
+        di<Routes>().login: (context) => const LoginScreen(),
+        di<Routes>().home: (context) => const HomeScreen(),
+      },
     );
   }
 
