@@ -14,18 +14,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FocusNode passwordFocus = FocusNode();
   final formKey = GlobalKey<FormState>();
   bool isRemembered = false;
-  final AppUtility _appUtility = AppUtility();
+  final AppUtility appUtility;
   String token = '';
+  final AppStorage appStorage;
 
-  LoginBloc() : super(const EmptyState()) {
+  LoginBloc({required this.appStorage, required this.appUtility})
+      : super(const EmptyState()) {
     loadUserCredentials();
   }
 
   //  // Retrieve saved credentials
   void loadUserCredentials() async {
-    String? savedUsername = AppStorage.getUsername();
-    String? savedPassword = AppStorage.getPassword();
-    bool? savedRememberMe = AppStorage.getRememberMe();
+    await appStorage.initializePrefs();
+    String? savedUsername = appStorage.getUsername();
+    String? savedPassword = appStorage.getPassword();
+    bool? savedRememberMe = appStorage.getRememberMe();
     if (savedUsername != null) {
       userNameController.text = savedUsername;
     }
@@ -41,10 +44,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   void saveUserCredentials(BuildContext context) async {
     generateToken();
     if (isRemembered) {
-      await AppStorage.saveCredentials(userNameController.text,
+      await appStorage.saveCredentials(userNameController.text,
           passwordController.text, isRemembered, token);
     } else {
-      await AppStorage.clearCredentials();
+      await appStorage.clearCredentials();
     }
     if (context.mounted) {
       Navigator.pushReplacementNamed(context, di<Routes>().home);
@@ -53,8 +56,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   // Generate Token
   void generateToken() {
-    String secretKey = _appUtility.generateRandomKey(32);
+    String secretKey = appUtility.generateRandomKey(32);
     String data = '${userNameController.text}|${passwordController.text}';
-    token = _appUtility.generateHMACToken(secretKey, data);
+    token = appUtility.generateHMACToken(secretKey, data);
   }
 }

@@ -20,7 +20,7 @@ final di = GetIt.instance;
 Future<void> init() async {
   // BLoC
   di.registerFactory(
-    () => LoginBloc(),
+    () => LoginBloc(appStorage: di(), appUtility: di()),
   );
   di.registerFactory(
     () => HomeScreenBloc(
