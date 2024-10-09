@@ -16,22 +16,23 @@ class AppTextFieldWidget extends StatefulWidget {
   final bool readOnly;
   final bool enabled;
   final bool isPassword;
+  final Key loginKey;
 
-  const AppTextFieldWidget({
-    super.key,
-    required this.inputPlaceHolder,
-    required this.controller,
-    required this.inputType,
-    required this.validator,
-    required this.focusNode,
-    required this.textInputAction,
-    required this.whitelistingTextInputFormatter,
-    this.enabled = true,
-    this.hidden = false,
-    this.readOnly = false,
-    this.isPassword = false,
-    this.onChanged,
-  });
+  const AppTextFieldWidget(
+      {super.key,
+      required this.inputPlaceHolder,
+      required this.controller,
+      required this.inputType,
+      required this.validator,
+      required this.focusNode,
+      required this.textInputAction,
+      required this.whitelistingTextInputFormatter,
+      this.enabled = true,
+      this.hidden = false,
+      this.readOnly = false,
+      this.isPassword = false,
+      this.onChanged,
+      required this.loginKey});
 
   @override
   State<AppTextFieldWidget> createState() => _AppTextFieldWidgetState();
@@ -62,7 +63,7 @@ class _AppTextFieldWidgetState extends State<AppTextFieldWidget> {
         minHeight: 50,
       ),
       child: TextFormField(
-        key: widget.key,
+        key: widget.loginKey,
         readOnly: widget.readOnly,
         controller: widget.controller,
         onChanged: widget.onChanged,

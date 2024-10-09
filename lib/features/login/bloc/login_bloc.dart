@@ -25,7 +25,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   //  // Retrieve saved credentials
   void loadUserCredentials() async {
-    await appStorage.initializePrefs();
     String? savedUsername = appStorage.getUsername();
     String? savedPassword = appStorage.getPassword();
     bool? savedRememberMe = appStorage.getRememberMe();

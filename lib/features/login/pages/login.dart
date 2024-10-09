@@ -112,10 +112,11 @@ class _LoginScreenState extends State<LoginScreen> {
     required final BuildContext context,
   }) {
     return AppTextFieldWidget(
-      key: WidgetKeys.loginUsername,
+      key: WidgetKeys.loginCUsername,
+      loginKey: WidgetKeys.loginUsername,
       inputPlaceHolder: translate(
             context,
-            StringKeys.email,
+            StringKeys.username,
           ) ??
           '',
       controller: _loginBloc.userNameController,
@@ -153,7 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
     required final BuildContext context,
   }) {
     return AppTextFieldWidget(
-      key: WidgetKeys.loginPassword,
+      key: WidgetKeys.loginCuPass,
+      loginKey: WidgetKeys.loginPassword,
       inputPlaceHolder: translate(
             context,
             StringKeys.password,
@@ -212,7 +214,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _loginBloc.passwordFocus.unfocus();
     if (_loginBloc.formKey.currentState?.validate() ?? false) {
       _loginBloc.saveUserCredentials(context);
-      ;
     }
   }
 }

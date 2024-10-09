@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class WidgetKeys {
-  static const loginUsername = Key('_loginUsername_');
-  static const loginPassword = Key('_loginPassword_');
-  static const loginButton = Key('_loginButton_');
+  static const loginUsername = Key('loginUsername');
+  static const loginCUsername = Key('loginCUsername');
+  static const loginPassword = Key('loginPassword');
+  static const loginCuPass = Key('loginCuPass');
+  static const loginButton = Key('loginButton');
 }

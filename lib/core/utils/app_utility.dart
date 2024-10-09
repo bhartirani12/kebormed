@@ -12,6 +12,10 @@ class AppUtility {
   }
 
   String generateHMACToken(String secret, String data) {
+    if (secret.isEmpty || data.isEmpty) {
+      throw ArgumentError('Secret and data must not be null or empty');
+    }
+
     var key = utf8.encode(secret);
     var bytes = utf8.encode(data);
 

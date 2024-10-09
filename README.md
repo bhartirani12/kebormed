@@ -35,6 +35,18 @@ flutter run
 To run on a specific device or simulator, ensure your device is connected or a simulator is running, then run:
 flutter run -d <device_id>
 
+## Project Structure:
+
+lib: Contains the main source code for the app.
+core: Houses shared utilities, error handling, and network-related components.
+data: Contains data sources, models, and repositories.
+domain: Defines the app's core business logic through entities, repositories, and use cases.
+features: Encapsulates specific app features, such as login, home, and user details.
+injection: Manages dependency injection for the app.
+resources: Stores color palettes, styles, and widgets.
+utils: Provides general utility functions.
+kebormed_app.dart: The main entry point of the app.
+main.dart: The entry point for the Flutter app.
 
 ## State Management
 This app uses the flutter_bloc library for managing the application's state. BLoC (Business Logic Component) is implemented to separate the business logic from UI, ensuring maintainable code.

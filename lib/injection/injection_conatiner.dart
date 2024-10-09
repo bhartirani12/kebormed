@@ -6,7 +6,6 @@ import 'package:kebormed/data/repositories/home_repository_impl.dart';
 import 'package:kebormed/domain/repositories/home_repository.dart';
 import 'package:kebormed/domain/usecases/home_usecase.dart';
 import 'package:kebormed/features/home/bloc/home_bloc.dart';
-import 'package:kebormed/features/user_detail/bloc/bloc.dart';
 
 import '../core/network/network_constants.dart';
 import '../core/network/network_info.dart';
@@ -26,9 +25,6 @@ Future<void> init() async {
     () => HomeScreenBloc(
       homeUsecase: di(),
     ),
-  );
-  di.registerFactory(
-    () => UserDetailScreenBloc(),
   );
 
   // UseCase

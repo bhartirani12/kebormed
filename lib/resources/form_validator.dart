@@ -46,16 +46,16 @@ class FormValidator {
     return null;
   }
 
-  String? checkEmptyField(
-    String? value,
-  ) {
-    final String input = value ?? '';
-    if (input.trim().isEmpty) {
-      return translate(
-        context,
-        StringKeys.invalidEntry,
-      );
-    }
-    return null;
-  }
+  // String? checkEmptyField(
+  //   String? value,
+  // ) {
+  //   final String input = value ?? '';
+  //   if (input.trim().isEmpty) {
+  //     return translate(
+  //       context,
+  //       StringKeys.invalidEntry,
+  //     );
+  //   }
+  //   return null;
+  // }
 }

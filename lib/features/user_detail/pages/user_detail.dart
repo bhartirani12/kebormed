@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kebormed/domain/entities/home_entity.dart';
-import 'package:kebormed/features/user_detail/bloc/bloc.dart';
-import '../../../injection/injection_conatiner.dart';
 import '../../../resources/resource.dart';
 
 class UserDetailScreen extends StatefulWidget {
@@ -18,57 +15,35 @@ class UserDetailScreen extends StatefulWidget {
 }
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
-  late UserDetailScreenBloc _userDetailBloc;
   @override
   void initState() {
-    _userDetailBloc = di<UserDetailScreenBloc>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _userDetailBloc,
-      child: BlocConsumer<UserDetailScreenBloc, UserDetailScreenState>(
-        listener: (context, state) {
-          if (state is NoInternetState) {
-            DialogWidget.showDialogBox(
-              context: context,
-              message: translate(
-                    context,
-                    StringKeys.internetConnectionError,
-                  ) ??
-                  '',
-              isError: true,
-            );
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: MarginKeys.commonContainerPadding,
-                  horizontal: MarginKeys.bodyCommonVerticalMargin,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildBackWidget(context: context, iconSize: 12),
-                    const SizedBox(
-                      height: MarginKeys.inputFieldVerticalMargin,
-                    ),
-                    const SizedBox(
-                      height: MarginKeys.inputFieldVerticalMargin,
-                    ),
-                    _buildUserDetailWidget()
-                  ],
-                ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: MarginKeys.commonContainerPadding,
+            horizontal: MarginKeys.bodyCommonVerticalMargin,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildBackWidget(context: context, iconSize: 12),
+              const SizedBox(
+                height: MarginKeys.inputFieldVerticalMargin,
               ),
-            ),
-          );
-        },
+              const SizedBox(
+                height: MarginKeys.inputFieldVerticalMargin,
+              ),
+              _buildUserDetailWidget()
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -167,15 +142,6 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             labelName: translate(context, StringKeys.address) ?? '',
             labelValue:
                 '${widget.userDetail.address.suite} - ${widget.userDetail.address.street}, ${widget.userDetail.address.city} (${widget.userDetail.address.zipcode})',
-          ),
-          const SizedBox(
-            height: MarginKeys.inputFieldVerticalMargin,
-          ),
-          _buildLabelValueWidget(
-            context: context,
-            labelName: translate(context, StringKeys.geo) ?? '',
-            labelValue:
-                '${widget.userDetail.address.geo.lat}(Lat), ${widget.userDetail.address.geo.lng}(Long)',
           ),
           const SizedBox(
             height: MarginKeys.inputFieldVerticalMargin,

@@ -3,9 +3,9 @@ import 'package:kebormed/domain/repositories/home_repository.dart';
 import '../../core/error/failure.dart';
 import '../../core/usecases/no_params.dart';
 import '../../core/usecases/usecase.dart';
-import '../../data/model/home_model.dart';
+import '../entities/home_entity.dart';
 
-class HomeUsecase extends UseCase<List<UserListModel>, NoParams> {
+class HomeUsecase extends UseCase<List<UserDataEntity>, NoParams> {
   final HomeRepository _repository;
 
   HomeUsecase(
@@ -13,7 +13,7 @@ class HomeUsecase extends UseCase<List<UserListModel>, NoParams> {
   );
 
   @override
-  Future<Either<Failure, List<UserListModel>>> call(
+  Future<Either<Failure, List<UserDataEntity>>> call(
     NoParams params,
   ) async {
     var result = await _repository.getUserList();

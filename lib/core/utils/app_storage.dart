@@ -2,9 +2,9 @@ import 'package:kebormed/core/constants/pref_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppStorage {
-  SharedPreferences? prefs;
+  static SharedPreferences? prefs;
 
-  Future<void> initializePrefs() async {
+  static Future<void> initializePrefs() async {
     prefs ??= await SharedPreferences.getInstance();
   }
 

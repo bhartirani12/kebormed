@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/error/failure.dart';
 import '../../core/network/network_info.dart';
-import '../../data/model/home_model.dart';
+import '../entities/home_entity.dart';
 
 /// Abstract repository for Home
 abstract class HomeRepository {
@@ -11,5 +11,5 @@ abstract class HomeRepository {
   HomeRepository({
     required this.networkInfo,
   });
-  Future<Either<Failure, List<UserListModel>>> getUserList();
+  Future<Either<Failure, List<UserDataEntity>>> getUserList();
 }

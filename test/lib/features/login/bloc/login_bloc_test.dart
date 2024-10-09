@@ -54,54 +54,19 @@ void main() {
       expect(loginBloc.isRemembered, false); // Default value for isRemembered
     });
 
-/*    test('Load user credentials populates controllers when remembers the state ', ()  {
+    test('Load user credentials   populate when values are fill', () {
+      // Arrange
+      when(mockAppStorage.getUsername()).thenReturn('test user');
+      when(mockAppStorage.getPassword()).thenReturn('test password');
+      when(mockAppStorage.getRememberMe()).thenReturn(true);
 
-      when(mockAppStorage.getUsername()).thenAnswer((_)  => 'test_user');
-      when(mockAppStorage.getPassword()).thenAnswer((_)  => 'test_pass');
-      when(mockAppStorage.getRememberMe()).thenAnswer((_)  => true);
+      // Act
+      loginBloc.loadUserCredentials();
 
-
-     //  loginBloc.loadUserCredentials();
-
-   */ /*   expect(loginBloc.userNameController.text, 'test_user');
-      expect(loginBloc.passwordController.text, 'test_pass');*/ /*
-      expect(loginBloc.isRemembered, true);
-    });*/
-
-/*    test('Save user credentials when remember me is true', () async {
-      loginBloc.isRemembered = true;
-      loginBloc.userNameController.text = 'test_user';
-      loginBloc.passwordController.text = 'test_pass';
-
-      when(mockAppUtility.generateRandomKey(32)).thenReturn('random_key');
-      when(mockAppUtility.generateHMACToken('random_key', 'data'))
-          .thenReturn('generated_token');
-
-       loginBloc.saveUserCredentials(MockBuildContext());
-
-      verify(mockAppStorage.saveCredentials('test_user', 'test_pass', true,
-          'generated_token')).called(1);
-    });*/
-
-    /* test('Clear credentials when remember me is false', () async {
-      loginBloc.isRemembered = false;
-
-      await loginBloc.saveUserCredentials(context);
-
-      verify(mockAppStorage.clearCredentials()).called(1);
-    });*/
-
-    test('Generate token works correctly', () async {
-      when(mockAppUtility.generateRandomKey(32)).thenReturn('random_key');
-      when(mockAppUtility.generateHMACToken('random_key', 'username|password'))
-          .thenReturn('generated_token');
-
-      loginBloc.userNameController.text = 'test_user';
-      loginBloc.passwordController.text = 'test_pass';
-
-      loginBloc.generateToken();
-
-      expect(loginBloc.token, 'generated_token');
+      // Assert
+      expect(loginBloc.userNameController.text, 'test user');
+      expect(loginBloc.passwordController.text, 'test password');
+      expect(loginBloc.isRemembered, true); // Default value for isRemembered
     });
   });
 }

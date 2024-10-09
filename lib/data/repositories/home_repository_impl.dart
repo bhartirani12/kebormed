@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:kebormed/data/datasource/home_datasource.dart';
 
 import '../../core/error/failure.dart';
+import '../../domain/entities/home_entity.dart';
 import '../../domain/repositories/home_repository.dart';
-import '../model/home_model.dart';
 
 /// Repository
 class HomeRepositoryImpl extends HomeRepository {
@@ -15,8 +15,7 @@ class HomeRepositoryImpl extends HomeRepository {
   });
 
   @override
-  Future<Either<Failure, List<UserListModel>>> getUserList() async {
-    print("await networkInfo.isConnected ${await networkInfo.isConnected}");
+  Future<Either<Failure, List<UserDataEntity>>> getUserList() async {
     if (!await networkInfo.isConnected) {
       return Left(NetworkFailure());
     }
