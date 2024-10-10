@@ -1,0 +1,44 @@
+[
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "123-456-7890",
+      "address": {
+        "street": "123 Main St",
+        "suite": "Apt 4B",
+        "city": "Springfield",
+        "zipcode": "12345",
+        "geo": {
+          "lat": "40.7128",
+          "lng": "-74.0060"
+        }
+      },
+      "website": "www.johndoe.com",
+      "company": {
+        "name": "Tech Corp",
+        "catchPhrase": "Innovating the future",
+        "bs": "tech solutions"
+      }
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "phone": "098-765-4321",
+      "address": {
+        "street": "456 Elm St",
+        "suite": "Apt 2A",
+        "city": "Shelbyville",
+        "zipcode": "54321",
+        "geo": {
+          "lat": "34.0522",
+          "lng": "-118.2437"
+        }
+      },
+      "website": "www.janesmith.com",
+      "company": {
+        "name": "Innovate LLC",
+        "catchPhrase": "Disrupting industries",
+        "bs": "creative solutions"
+      }
+    }
+  ]

@@ -9,7 +9,7 @@ class MarginKeys {
   static const double commonPadding = 16;
   static const double commonSpreadRadius = 1;
 
-  static SizedBox spacer(
+  SizedBox spacer(
     final double space,
   ) =>
       SizedBox(

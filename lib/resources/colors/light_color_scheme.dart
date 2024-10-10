@@ -11,7 +11,6 @@ const ColorScheme lightColorScheme = ColorScheme(
   primaryContainer: Color(
     0xFF74FF6C,
   ),
-  // Disabled color for button
   onPrimaryContainer: Color(
     0xFFA6E2B2,
   ),
@@ -51,11 +50,9 @@ const ColorScheme lightColorScheme = ColorScheme(
   onErrorContainer: Color(
     0xFF410002,
   ),
-  // for white things which will be inverted in dark mode
   surface: Color(
     0xFFedf5fb,
   ),
-  // for black which will be inverted in dark mode
   onSurface: Color(
     0xFF1D1D1D,
   ),
@@ -74,14 +71,12 @@ const ColorScheme lightColorScheme = ColorScheme(
   inverseSurface: Color(
     0xFF00363D,
   ),
-  // Disabled color with .3 or 30% opacity
   inversePrimary: Color(
     0xFFCDCDCD,
   ),
   shadow: Color(
     0xFF000000,
   ),
-  // Disabled Color for text and cards
   surfaceTint: Color(
     0xFF5A5A5A,
   ),

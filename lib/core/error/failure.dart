@@ -2,15 +2,12 @@ import 'package:equatable/equatable.dart';
 
 import 'exception.dart';
 
-/// This class denotes different kind of failures.
 abstract class Failure extends Equatable {
   final String commomFailureMessage = 'Something went wrong, please try again';
   @override
   List<Object> get props => [commomFailureMessage];
 }
 
-/// This class denotes the error response received from http client,
-/// it contains the http status code
 class HttpFailure extends Failure {
   final String exceptionText;
   final int? statusCode;

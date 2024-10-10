@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kebormed/core/utils/app_utility.dart';
-
-import '../../../core/routes/route.dart';
 import '../../../core/utils/app_storage.dart';
-import '../../../injection/injection_conatiner.dart';
 import 'bloc.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -12,7 +9,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final TextEditingController passwordController = TextEditingController();
   FocusNode userNameFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isRemembered = false;
   final AppUtility appUtility;
   String token = '';
@@ -20,40 +17,50 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({required this.appStorage, required this.appUtility})
       : super(const EmptyState()) {
-    loadUserCredentials();
+    on<LoginPageReadyEvent>((event, emit) async {
+      emit(const LoadingState());
+      loadUserCredentials();
+      emit(const LoginPageReadyState(true));
+    });
+    on<UserLoginEvent>((event, emit) => emit(const LoadingState()));
+    on<LoginFailureEvent>((event, emit) => emit(const LoginFailureState()));
+    on<LoginSuccessEvent>((event, emit) => emit(const LoginSuccessState()));
+    on<NoInternetEvent>((event, emit) => emit(NoInternetState()));
+    on<UpdateRememberMeEvent>((event, emit) {
+      isRemembered = event.isRemembered;
+      emit(UpdateRememberMeState(isRemembered));
+    });
+    add(LoginPageReadyEvent());
   }
 
-  //  // Retrieve saved credentials
-  void loadUserCredentials() async {
-    String? savedUsername = appStorage.getUsername();
-    String? savedPassword = appStorage.getPassword();
-    bool? savedRememberMe = appStorage.getRememberMe();
-    if (savedUsername != null) {
-      userNameController.text = savedUsername;
-    }
-    if (savedPassword != null) {
-      passwordController.text = savedPassword;
-    }
-    if (savedRememberMe != null) {
-      isRemembered = savedRememberMe;
+  @override
+  Future<void> onEvent(LoginEvent event) async {
+    super.onEvent(event);
+    if (event is UserLoginEvent) {
+      if (event.username.isNotEmpty && event.password.isNotEmpty) {
+        saveUserCredentials(event.username, event.password);
+        add(const LoginSuccessEvent());
+      } else {
+        add(const LoginFailureEvent());
+      }
     }
   }
 
-  // Save user credentials
-  void saveUserCredentials(BuildContext context) async {
+  void loadUserCredentials() {
+    userNameController.text = appStorage.getUsername() ?? '';
+    passwordController.text = appStorage.getPassword() ?? '';
+    isRemembered = appStorage.getRememberMe() ?? false;
+  }
+
+  void saveUserCredentials(String username, String password) async {
     generateToken();
     if (isRemembered) {
-      await appStorage.saveCredentials(userNameController.text,
-          passwordController.text, isRemembered, token);
+      await appStorage.saveCredentials(username, password, isRemembered, token);
     } else {
       await appStorage.clearCredentials();
     }
-    if (context.mounted) {
-      Navigator.pushReplacementNamed(context, di<Routes>().home);
-    }
   }
 
-  // Generate Token
   void generateToken() {
     String secretKey = appUtility.generateRandomKey(32);
     String data = '${userNameController.text}|${passwordController.text}';

@@ -30,7 +30,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     if (event is FetchHomeScreenListEvent) {
       final result = await homeUsecase.call(NoParams());
       result.fold((failure) {
-        print("hfhagfdashdfsahdf $failure");
         if (failure is NetworkFailure) {
           add(NoInternetEvent());
         } else {

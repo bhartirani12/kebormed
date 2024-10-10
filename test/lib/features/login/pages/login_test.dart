@@ -19,27 +19,21 @@ class MockAppUtility extends Mock implements AppUtility {}
 class MockHomeBloc extends Mock implements HomeScreenBloc {}
 
 void main() {
+  late LoginBloc loginBloc;
   setUpAll(() {
     WidgetsFlutterBinding.ensureInitialized();
-    // Register the LoginBloc with GetIt before tests
-
+    loginBloc =
+        LoginBloc(appStorage: MockAppStorage(), appUtility: MockAppUtility());
     GetIt.I.registerSingleton<LoginBloc>(
         LoginBloc(appStorage: MockAppStorage(), appUtility: MockAppUtility()));
   });
   testWidgets('LoginScreen should render username and password fields',
       (WidgetTester tester) async {
-    // Build the LoginScreen widget
     await tester.pumpWidget(const MaterialApp(
       home: LoginScreen(),
     ));
-
-    // Check if the username field is present
     expect(find.byKey(WidgetKeys.loginUsername), findsOneWidget);
-
-    // Check if the password field is present
     expect(find.byKey(WidgetKeys.loginPassword), findsOneWidget);
-
-    // Check if the "Remember Me" checkbox is present
     expect(find.byType(Checkbox), findsOneWidget);
   });
 
@@ -48,16 +42,35 @@ void main() {
     await tester.pumpWidget(const MaterialApp(
       home: LoginScreen(),
     ));
-    // Verify the checkbox is initially unchecked
     Checkbox checkbox = tester.widget(find.byType(Checkbox));
     expect(checkbox.value, false);
-
-    // Tap on the checkbox to change its value
     await tester.tap(find.byType(Checkbox));
     await tester.pump();
-
-    // Verify the checkbox is now checked
     checkbox = tester.widget(find.byType(Checkbox));
     expect(checkbox.value, true);
+  });
+
+  testWidgets('Submitting form validates input', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: LoginScreen(),
+    ));
+
+    expect(find.byKey(WidgetKeys.loginButton), findsOneWidget);
+
+    await tester.enterText(
+        find.byKey(WidgetKeys.loginCustomUserName), 'test@gmail.com');
+    await tester.enterText(
+        find.byKey(WidgetKeys.loginCustomPassword), '1111111');
+    await tester.tap(find.byKey(WidgetKeys.loginButton));
+    await tester.pump();
+    final formKey = loginBloc.formKey;
+    final isValid = formKey.currentState?.validate() ?? false;
+    expect(isValid, true);
+    await tester.enterText(find.byKey(WidgetKeys.loginCustomUserName), 'test');
+    await tester.enterText(find.byKey(WidgetKeys.loginCustomPassword), '11');
+    await tester.tap(find.byKey(WidgetKeys.loginButton));
+    await tester.pump();
+    final isValidFailed = formKey.currentState?.validate() ?? false;
+    expect(isValidFailed, false);
   });
 }

@@ -16,7 +16,7 @@ class DialogWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                MarginKeys.spacer(MarginKeys.commonPadding),
+                MarginKeys().spacer(MarginKeys.commonPadding),
                 Text(
                   translate(
                         context,
@@ -30,7 +30,7 @@ class DialogWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
-                MarginKeys.spacer(
+                MarginKeys().spacer(
                   MarginKeys.commonPadding,
                 ),
                 Text(
@@ -55,7 +55,7 @@ class DialogWidget {
                     },
                   ),
                 ),
-                MarginKeys.spacer(
+                MarginKeys().spacer(
                   MarginKeys.commonPadding,
                 ),
               ],

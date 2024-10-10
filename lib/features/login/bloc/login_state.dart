@@ -10,10 +10,10 @@ class EmptyState extends LoginState {
   List<Object> get props => [];
 }
 
-class AppLoginPageReadyState extends LoginState {
+class LoginPageReadyState extends LoginState {
   final bool landingDone;
 
-  const AppLoginPageReadyState(
+  const LoginPageReadyState(
     this.landingDone,
   );
 
@@ -29,16 +29,23 @@ class LoadingState extends LoginState {
   List<Object> get props => [];
 }
 
-class LoginFailureState extends LoginState {
-  final String message;
+class UpdateRememberMeState extends LoginState {
+  final bool isRemembered;
 
-  const LoginFailureState({
-    required this.message,
-  });
+  const UpdateRememberMeState(
+    this.isRemembered,
+  );
+
   @override
   List<Object> get props => [
-        message,
+        isRemembered,
       ];
+}
+
+class LoginFailureState extends LoginState {
+  const LoginFailureState();
+  @override
+  List<Object> get props => [];
 }
 
 class LoginSuccessState extends LoginState {

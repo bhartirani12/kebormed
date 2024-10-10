@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/routes/route.dart';
 import '../../../injection/injection_conatiner.dart';
 import '../../../resources/resource.dart';
 import '../bloc/bloc.dart';
@@ -35,11 +36,32 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocProvider(
       create: (context) => _loginBloc,
       child: BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is LoginSuccessState) {
+            Navigator.pushReplacementNamed(context, di<Routes>().home);
+          } else if (state is LoginFailureState) {
+            DialogWidget.showDialogBox(
+              context: context,
+              message: 'Something went wrong! Please try again later',
+              isError: true,
+            );
+          } else if (state is NoInternetState) {
+            DialogWidget.showDialogBox(
+              context: context,
+              message: translate(
+                    context,
+                    StringKeys.internetConnectionError,
+                  ) ??
+                  '',
+              isError: true,
+            );
+          }
+        },
         builder: (context, state) {
+          bool isLoading = state is LoadingState;
           return Scaffold(
             body: ProgressLoader(
-              inAsyncCall: false,
+              inAsyncCall: isLoading,
               child: SingleChildScrollView(
                 child: SafeArea(
                   child: Padding(
@@ -112,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
     required final BuildContext context,
   }) {
     return AppTextFieldWidget(
-      key: WidgetKeys.loginCUsername,
+      key: WidgetKeys.loginCustomUserName,
       loginKey: WidgetKeys.loginUsername,
       inputPlaceHolder: translate(
             context,
@@ -154,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
     required final BuildContext context,
   }) {
     return AppTextFieldWidget(
-      key: WidgetKeys.loginCuPass,
+      key: WidgetKeys.loginCustomPassword,
       loginKey: WidgetKeys.loginPassword,
       inputPlaceHolder: translate(
             context,
@@ -186,11 +208,10 @@ class _LoginScreenState extends State<LoginScreen> {
           Checkbox(
               value: _loginBloc.isRemembered,
               onChanged: (bool? value) {
-                setState(() {
-                  _loginBloc.isRemembered = value ?? false;
-                });
+                _loginBloc
+                    .add(UpdateRememberMeEvent(isRemembered: value ?? false));
               },
-              checkColor: Colors.white, // color of tick Mark
+              checkColor: Colors.white,
               activeColor: Theme.of(context).colorScheme.primary),
           Transform.translate(
             offset: const Offset(-7, 0),
@@ -213,7 +234,13 @@ class _LoginScreenState extends State<LoginScreen> {
     _loginBloc.userNameFocus.unfocus();
     _loginBloc.passwordFocus.unfocus();
     if (_loginBloc.formKey.currentState?.validate() ?? false) {
-      _loginBloc.saveUserCredentials(context);
+      _loginBloc.add(
+        UserLoginEvent(
+          username: _loginBloc.userNameController.text,
+          password: _loginBloc.passwordController.text,
+        ),
+      );
+      // _loginBloc.saveUserCredentials(context);
     }
   }
 }

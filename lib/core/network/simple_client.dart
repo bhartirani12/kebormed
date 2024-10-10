@@ -71,23 +71,22 @@ class SimpleClient {
     }
   }
 
-  Future _processResponse(Future<Response>? response) {
+  Future _processResponse(Future<Response>? response) async {
     if (response == null) {
-      throw const HttpException('There was some error in sending the request');
+      throw const HttpException('Error: No response received from the request');
     }
+
     return response.catchError((err) {
-      throw const HttpException('Error sending request');
+      throw HttpException('Error sending request: ${err.toString()}');
     }).then((Response response) async {
       final statusCode = response.statusCode;
 
-      if (statusCode < 200 || statusCode >= 300) {
+      if (statusCode >= 200 && statusCode < 300) {
+        return jsonDecode(response.body);
+      } else {
         throw HttpException(
-            'Unexpected status code [$statusCode]: ${response.body}');
+            'Request failed with status: $statusCode, body: ${response.body}');
       }
-
-      dynamic respBody = json.decode(response.body);
-
-      return respBody;
     });
   }
 

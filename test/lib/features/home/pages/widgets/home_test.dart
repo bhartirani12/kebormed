@@ -7,8 +7,6 @@ import 'package:kebormed/features/user_detail/pages/user_detail.dart';
 void main() {
   testWidgets('ListItemWidget displays user list item',
       (WidgetTester tester) async {
-    // Create a test user list entity
-
     List<UserDataEntity> userList = [
       const UserDataEntity(
         name: 'John Doe',
@@ -47,7 +45,6 @@ void main() {
         ),
       )
     ];
-    // Build the ListItemWidget with the test user list entity
 
     await tester.pumpWidget(
       MaterialApp(
@@ -58,15 +55,10 @@ void main() {
       ),
     );
 
-    // Verify that the list item widget displays the user's name
     expect(find.text(userList[0].name), findsOneWidget);
     expect(find.text(userList[1].name), findsOneWidget);
-
-    // Verify that the list item widget displays the user's email
     expect(find.text(userList[0].email), findsOneWidget);
     expect(find.text(userList[1].email), findsOneWidget);
-
-    // Verify that tapping on the list item navigates to the UserDetailScreen
     await tester.tap(find.byType(GestureDetector).first);
     await tester.pumpAndSettle();
     expect(find.byType(UserDetailScreen), findsOneWidget);

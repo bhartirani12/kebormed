@@ -4,7 +4,7 @@ abstract class LoginEvent extends Equatable {
   const LoginEvent();
 }
 
-class AppLoginPageReadyEvent extends LoginEvent {
+class LoginPageReadyEvent extends LoginEvent {
   @override
   List<Object> get props => [];
 }
@@ -15,30 +15,25 @@ class UserLoginEvent extends LoginEvent {
   const UserLoginEvent({required this.username, required this.password});
 
   @override
+  List<Object> get props => [username, password];
+}
+
+class UpdateRememberMeEvent extends LoginEvent {
+  final bool isRemembered;
+
+  const UpdateRememberMeEvent({required this.isRemembered});
+  @override
+  List<Object> get props => [isRemembered];
+}
+
+class LoginFailureEvent extends LoginEvent {
+  const LoginFailureEvent();
+  @override
   List<Object> get props => [];
 }
 
-class LoadCredentials extends LoginEvent {
-  const LoadCredentials();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class ApiFailureEvent extends LoginEvent {
-  final String message;
-
-  const ApiFailureEvent({
-    required this.message,
-  });
-  @override
-  List<Object> get props => [
-        message,
-      ];
-}
-
-class ApiSuccessEvent extends LoginEvent {
-  const ApiSuccessEvent();
+class LoginSuccessEvent extends LoginEvent {
+  const LoginSuccessEvent();
   @override
   List<Object> get props => [];
 }
